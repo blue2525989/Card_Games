@@ -22,17 +22,20 @@ public class Controller implements ActionListener{
 	// instance of view class
 	public View view = new View();
 	
-	//new hands
+	// new hands
 	private Card[] phand = card.newHandPoker();
 	private Card[] chand = card.newHandPoker();
+	// new deck, new deck for holding combos
 	private ArrayList<Card> deck;
 	private ArrayList<Card> combo;
 	// array to save names of card so not affected by random numbers
+	// also helps when updating the cards after hits or calls
 	String[] cardNames = new String[10];
 	
 	// counters for score
 	private int playerScore = 0;
 	private int dealerScore = 0;
+	// string for holding winning combo for end game message
 	private String playersCombo = "";
 	private String dealersCombo = "";
 	// counters for player combos
@@ -41,17 +44,13 @@ public class Controller implements ActionListener{
 	private int threeKind;
 	private int fullHouse;
 	private int fourKind;
-	private int fiveKind;
 	private int straight;
 	// counter for dealer combos
 	private int ctwoKind;
 	private int ctwoPair;
 	private int cthreeKind;
-	// put the suppress	warnings annotation there because
-	// the yellow squigly line drives me nuts.
 	private int cfullHouse;
 	private int cfourKind;
-	private int cfiveKind;
 	private int cstraight;
 	
 	// constructor
@@ -73,7 +72,6 @@ public class Controller implements ActionListener{
 		view.setMiddle("Two of a kind: " + 0 +"\t\t" + "Dealer Two of a kind: " + 0 +"\n"
 				+ "Three of a kind: " + 0 + "\t"+ "Dealer Three of a kind: " + 0 + "\n"
 				+ "Four of a kind: " + 0 + "\t\t" + "Dealer Four of a kind: " + 0 + "\n"
-				+ "Five of a kind: " + 0 + "\t\t" + "Dealer Five of a kind: " + 0 + "\n"
 			    + "Two Pair's: " + 0 + "\t\t" + "Dealer Two Pair's: " + 0 + "\n"
 			    + "Straight: " + 0 + "\t\t" + "Dealer Straight: " + 0 + "\n"
 			    + "Full House: " + 0 + "\t\t" + "Dealer Full House: " + 0);
@@ -86,7 +84,8 @@ public class Controller implements ActionListener{
 		/**
 		 * DEAL CARDS BUTTON
 		 * 
-		 * 
+		 * deals each player 5 cards at random from a 52 card deck.
+		 * resets and checks for scores as well for dealer and player.
 		 * 
 		 */
 			
@@ -96,7 +95,6 @@ public class Controller implements ActionListener{
 			view.setMiddle("Two of a kind: " + 0 +"\t\t" + "Dealer Two of a kind: " + 0 +"\n"
 					+ "Three of a kind: " + 0 + "\t"+ "Dealer Three of a kind: " + 0 + "\n"
 					+ "Four of a kind: " + 0 + "\t\t" + "Dealer Four of a kind: " + 0 + "\n"
-					+ "Five of a kind: " + 0 + "\t\t" + "Dealer Five of a kind: " + 0 + "\n"
 				    + "Two Pair's: " + 0 + "\t\t" + "Dealer Two Pair's: " + 0 + "\n"
 				    + "Straight: " + 0 + "\t\t" + "Dealer Straight: " + 0 + "\n"
 				    + "Full House: " + 0 + "\t\t" + "Dealer Full House: " + 0);
@@ -105,7 +103,6 @@ public class Controller implements ActionListener{
 			threeKind = 0;
 			fourKind = 0;
 			twoPair = 0;
-			fiveKind = 0;
 			fullHouse = 0;
 			straight = 0;
 			playerScore = 0;
@@ -114,20 +111,20 @@ public class Controller implements ActionListener{
 			cthreeKind = 0;
 			cfourKind = 0;
 			ctwoPair = 0;
-			cfiveKind = 0;
 			cfullHouse = 0;
 			cstraight = 0;
 			dealerScore = 0;
-			//deal cards
+			// initialize deck
 			deck = card.newDeck(52);
+			// deal 5 cards to player and dealer
 			deck = card.dealPoker(deck, phand, chand);
-			// save player card names so random doesn't change face card names
+			// save player card names for updating prompt
 			cardNames[0] = card.saveCardName(phand[0]);
 			cardNames[1] = card.saveCardName(phand[1]);
 			cardNames[2] = card.saveCardName(phand[2]);
 			cardNames[3] = card.saveCardName(phand[3]);
 			cardNames[4] = card.saveCardName(phand[4]);
-			// save dealer card names so random doesn't change face card names
+			// save dealer card names for updating prompt
 			cardNames[5] = card.saveCardName(chand[0]);
 			cardNames[6] = card.saveCardName(chand[1]);
 			cardNames[7] = card.saveCardName(chand[2]);
@@ -160,13 +157,6 @@ public class Controller implements ActionListener{
 					playersCombo = "Four of a kind.";
 					JOptionPane.showMessageDialog(null, "Four of a kind!");
 				}
-				// five of a kind because of random
-				else if (card.checkPairs(phand) == 20) {
-					fiveKind += 1;
-					playerScore = 7;
-					playersCombo = "Five of a kind.";
-					JOptionPane.showMessageDialog(null, "Five of a kind!");
-				}
 				// full house
 				else if (card.checkPairs(phand) == 4 || card.checkPairs(phand) == 8){
 					fullHouse += 1;
@@ -182,62 +172,60 @@ public class Controller implements ActionListener{
 				}
 			}
 			// check for combos and update dealer score
-						for (int j = 0; j < 1; j++) {
-							// two of a kind
-							if (card.checkPairs(chand) == 1) {
-								ctwoKind = 1;
-								dealerScore = 1;
-								dealersCombo = "Two of a kind.";
-							}
-							// two pairs
-							else if (card.checkPairs(chand) == 2) {
-								ctwoPair = 1;
-								dealerScore = 2;
-								dealersCombo = "Two pairs.";
-							}
-							// three of a kind
-							else if (card.checkPairs(chand) == 6) {
-								cthreeKind = 1;
-								dealerScore = 3;
-								dealersCombo = "Three of a kind.";
-							}
-							// four of a kind
-							else if (card.checkPairs(chand) == 12) {
-								cfourKind = 1;
-								dealerScore = 6;
-								dealersCombo = "Four of a kind.";
-							}
-							// five of a kind because of random
-							else if (card.checkPairs(chand) == 20) {
-								cfiveKind = 1;
-								dealerScore = 7;
-								dealersCombo = "Five of a kind.";
-							}
-							// full house
-							else if (card.checkPairs(chand) == 4 || card.checkPairs(chand) == 8){
-								cfullHouse = 1;
-								dealerScore = 4;
-								dealersCombo = "Full house.";
-							}
-							// straight 
-							else if (card.straight(chand) == 1) {
-								cstraight = 1;
-								dealerScore = 5;
-								dealersCombo = "Straight.";
-							}
-						}
+			for (int j = 0; j < 1; j++) {
+				// two of a kind
+				if (card.checkPairs(chand) == 1) {
+					ctwoKind = 1;
+					dealerScore = 1;
+					dealersCombo = "Two of a kind.";
+				}
+				// two pairs
+				else if (card.checkPairs(chand) == 2) {
+					ctwoPair = 1;
+					dealerScore = 2;
+					dealersCombo = "Two pairs.";
+				}
+				// three of a kind
+				else if (card.checkPairs(chand) == 6) {
+					cthreeKind = 1;
+					dealerScore = 3;
+					dealersCombo = "Three of a kind.";
+				}
+				// four of a kind
+				else if (card.checkPairs(chand) == 12) {
+					cfourKind = 1;
+					dealerScore = 6;
+					dealersCombo = "Four of a kind.";
+				}
+				// full house
+				else if (card.checkPairs(chand) == 4 || card.checkPairs(chand) == 8){
+					cfullHouse = 1;
+					dealerScore = 4;
+					dealersCombo = "Full house.";
+				}
+				// straight 
+				else if (card.straight(chand) == 1) {
+					cstraight = 1;
+					dealerScore = 5;
+					dealersCombo = "Straight.";
+				}
+			}
+			
+			// displays players and dealers hands in text area
 			view.setGame("Player's cards, \n" + cardNames[0] + " " + cardNames[1] + 
 					" " + cardNames[2] + " " + cardNames[3] + " " + cardNames[4]);
 			view.setGame("Dealer's cards,\n" + cardNames[5] + " " + cardNames[6] + 
 					" " + cardNames[7] + " " + cardNames[8] + " " + cardNames[9]);
+			
 			// intial starting prompt
 			view.setMiddle("Two of a kind: " + twoKind +"\t\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
 					+ "Three of a kind: " + threeKind + "\t"+ "Dealer Three of a kind: " + cthreeKind + "\n"
 					+ "Four of a kind: " + fourKind + "\t\t" + "Dealer Four of a kind: " + cfourKind + "\n"
-					+ "Five of a kind: " + fiveKind + "\t\t" + "Dealer Five of a kind: " + cfiveKind + "\n"
 				    + "Two Pair's: " + twoPair + "\t\t" + "Dealer Two Pair's: " + ctwoPair + "\n"
 				    + "Straight: " + straight + "\t\t" + "Dealer Straight: " + cstraight + "\n"
 				    + "Full House: " + fullHouse + "\t\t" + "Dealer Full House: " + cfullHouse);
+			
+			// enable buttons
 			view.yes.setEnabled(true);
 			view.no.setEnabled(true);
 		}
@@ -245,20 +233,38 @@ public class Controller implements ActionListener{
 		/**
 		 * TAKE A HIT BUTTON
 		 * 
-		 * 
+		 * allows player to take a hit. 3 cards if no ace, 4 cards if ace is present.
+		 * checks and updates scores.
 		 * 
 		 */
 		
 		if (event.getSource() == view.yes) {
 			// turn off button so can only hit once
 			view.yes.setEnabled(false);
+			
+			// reset counter to ZERO
+			twoKind = 0;
+			threeKind = 0;
+			fourKind = 0;
+			twoPair = 0;
+			fullHouse = 0;
+			straight = 0;
+			playerScore = 0;
+						
 			// initialize numCards outside of loop for use later
 			int numCards = 0;
-			// gets first card's rank to see if ace or not to determine amount of 
+			
+			// gets card's rank to see if ace or not to determine amount of 
 			// cards that can be swapped
-			int zerorank = phand[0].getRank();
-			// if first card is an ace
-			if (zerorank == 11) {
+			int zerorank = 0;
+			for (int i = 0; i < phand.length; i++) {
+				if (phand[i].getRank() == 1) {
+					zerorank = 1;
+				}
+			}
+			
+			// if there is an ace
+			if (zerorank == 1) {
 				String numcards = JOptionPane.showInputDialog(null, "Enter the number of cards to swap up too 4.");
 				numCards = Integer.parseInt(numcards);
 				// if choice is more than 4 changes it to 4
@@ -280,25 +286,45 @@ public class Controller implements ActionListener{
 				}
 			}
 			
+			// loop for checking if there are cards to be swapped
+			// if numCards > 0 then it goes through the loop
 			for (int i = 0; i < numCards; i++) {
+				
 				// get a number of a card to swap
 				String choice = JOptionPane.showInputDialog("Please enter the number of the card [0,1,2,3,4]\n"
 						+ "Numbers greater then 4 will be converted to 4.");
+				
 				// change string to integer
 				int spot = Integer.parseInt(choice);
+				
 				// change choice to 4 if greater than
 				if (spot > 4) {
 					spot = 4;
 				}
+				
 				// finds current spot of card chosen to swap
 				int sc = phand[spot].getSuit();
 				int rc = phand[spot].getRank();
 				card.hitPoker(phand, new Card(sc, rc));
+				
 				// save new name of card to card array
 				cardNames[spot] = card.saveCardName(phand[spot]);
 				
-				
+				// displays cards before hit
+				for (int m = 0; m < 1; m++) {
+					if (i == 1) {
+						// set game data
+						view.setGame("\nPlayer's cards, \n" + phand[0].toString() + " " + phand[1].toString() + 
+								" " + phand[2].toString() + " " + phand[3].toString() + " " + phand[4].toString());
+					}
+				}				
 			}
+
+			// sets game data
+			view.setGame("Players hit, \n" + cardNames[0] + " " + cardNames[1] + 
+					" " + cardNames[2] + " " + cardNames[3] + " " + cardNames[4]);
+			
+			
 			// checks for combos
 			for (int j = 0; j < 1; j++) {
 				// two of a kind
@@ -326,13 +352,6 @@ public class Controller implements ActionListener{
 					playersCombo = "Four of a kind.";
 					JOptionPane.showMessageDialog(null, "Four of a kind!");
 				}
-				// five of a kind because of random
-				else if (card.checkPairs(phand) == 20) {
-					fiveKind += 1;
-					playerScore = 7;
-					playersCombo = "Five of a kind.";
-					JOptionPane.showMessageDialog(null, "Five of a kind!");
-				}
 				// full house
 				else if (card.checkPairs(phand) == 4 || card.checkPairs(phand) == 8){
 					fullHouse = 1;
@@ -348,15 +367,11 @@ public class Controller implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Straight!!");
 				}				
 			}
-			// sets game data
-			view.setGame("Players hit, \n" + cardNames[0] + " " + cardNames[1] + 
-					" " + cardNames[2] + " " + cardNames[3] + " " + cardNames[4]);
-			// sets combos data
-			// intial starting prompt
+			
+			// prompt
 			view.setMiddle("Two of a kind: " + twoKind +"\t\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
 					+ "Three of a kind: " + threeKind + "\t"+ "Dealer Three of a kind: " + cthreeKind + "\n"
 					+ "Four of a kind: " + fourKind + "\t\t" + "Dealer Four of a kind: " + cfourKind + "\n"
-					+ "Five of a kind: " + fiveKind + "\t\t" + "Dealer Five of a kind: " + cfiveKind + "\n"
 				    + "Two Pair's: " + twoPair + "\t\t" + "Dealer Two Pair's: " + ctwoPair + "\n"
 				    + "Straight: " + straight + "\t\t" + "Dealer Straight: " + cstraight + "\n"
 				    + "Full House: " + fullHouse + "\t\t" + "Dealer Full House: " + cfullHouse);
@@ -368,60 +383,22 @@ public class Controller implements ActionListener{
 		/**
 		 * DON'T TAKE A HIT BUTTON
 		 * 
-		 *  
+		 * checks to see if computer has any combos
+		 * and then decides to hit or not.
 		 *  
 		 */
 		
-		if (event.getSource() == view.no) {
-			// check for combos and update dealer score
-			for (int j = 0; j < 1; j++) {
-				// two of a kind
-				if (card.checkPairs(chand) == 1) {
-					ctwoKind = 1;
-					dealerScore = 1;
-					dealersCombo = "Two of a kind.";
-				}
-				// two pairs
-				else if (card.checkPairs(chand) == 2) {
-					ctwoPair = 1;
-					dealerScore = 2;
-					dealersCombo = "Two pairs.";
-				}
-				// three of a kind
-				else if (card.checkPairs(chand) == 6) {
-					cthreeKind = 1;
-					dealerScore = 3;
-					dealersCombo = "Three of a kind.";
-				}
-				// four of a kind
-				else if (card.checkPairs(chand) == 12) {
-					cfourKind = 1;
-					dealerScore = 6;
-					dealersCombo = "Four of a kind.";
-				}
-				// five of a kind because of random
-				else if (card.checkPairs(chand) == 20) {
-					cfiveKind = 1;
-					dealerScore = 7;
-					dealersCombo = "Five of a kind.";
-				}
-				// full house
-				else if (card.checkPairs(chand) == 4 || card.checkPairs(chand) == 8){
-					cfullHouse = 1;
-					dealerScore = 4;
-					dealersCombo = "Full house.";
-				}
-				// straight 
-				else if (card.straight(chand) == 1) {
-					cstraight = 1;
-					dealerScore = 5;
-					dealersCombo = "Straight.";
-				}
-			}
+		if (event.getSource() == view.no) {			
 			// conditions for dealer hit
 			for (int m = 0; m < 1; m++) {
+
+				// set dealers cards again
+				view.setGame("\nDealer's cards,\n" + cardNames[5] + " " + cardNames[6] + 
+						" " + cardNames[7] + " " + cardNames[8] + " " + cardNames[9]);
+				
 				// if zero combos
 				if (dealerScore == 0) {
+					// swaps 1, 3 and 5 cards in hand
 					card.hitPoker(chand, chand[0]);
 					card.hitPoker(chand, chand[2]);
 					card.hitPoker(chand, chand[4]);
@@ -430,18 +407,21 @@ public class Controller implements ActionListener{
 				else if (ctwoKind == 1) {
 					combo = card.findCombos(chand);
 					Card[] combos = new Card[15];
+					// get combos
 					for (int i = 0; i < combo.size(); i++) {
 						combos[i] = combo.get(i);
-						
 					}
+					// swap cards
 					for (int j = 0; j < chand.length; j++) {
 						if (combos[0] != chand[j]) {
 							if (combos[1] != chand[j]) {
-							card.hitPoker(chand, chand[j]);}
+								card.hitPoker(chand, chand[j]);
+							}
 						}
 						else if (combos[1] != chand[j]) {
 							if (combos[0] != chand[j]) {
-							card.hitPoker(chand, chand[j]);}
+								card.hitPoker(chand, chand[j]);
+							}
 						}
 					}
 					
@@ -450,10 +430,11 @@ public class Controller implements ActionListener{
 				else if(cthreeKind == 1) {
 					combo = card.findCombos(chand);
 					Card[] combos = new Card[15];
+					// get combos
 					for (int i = 0; i < combo.size(); i++) {
 						combos[i] = combo.get(i);						
 					}
-					// dealer hits if card isnt in combo array
+					// swap cards
 					for (int j = 0; j < chand.length; j++) {
 						if (combos[0] != chand[j]) {
 							if (combos[1] != chand[j]) {
@@ -482,10 +463,11 @@ public class Controller implements ActionListener{
 				else if (cfourKind == 1) {
 					combo = card.findCombos(chand);
 					Card[] combos = new Card[15];
+					// gets combos
 					for (int i = 0; i < combo.size(); i++) {
 						combos[i] = combo.get(i);						
 					}
-					// dealer hits if card isnt in combo array
+					// swap cards
 					for (int j = 0; j < chand.length; j++) {
 						if (combos[0] != chand[j]) {
 							if (combos[1] != chand[j]) {
@@ -531,9 +513,11 @@ public class Controller implements ActionListener{
 				else if (ctwoPair == 1) {
 					combo = card.findCombos(chand);
 					Card[] combos = new Card[15];
+					// gets combos
 					for (int i = 0; i < combo.size(); i++) {
 						combos[i] = combo.get(i);						
 					}
+					// swaps cards
 					for (int j = 0; j < chand.length; j++) {
 						if (combos[0] != chand[j]) {
 							if (combos[1] != chand[j]) {
@@ -574,12 +558,15 @@ public class Controller implements ActionListener{
 					}
 				}
 			}
+			
+			// sets game data
+			view.setGame("Dealers hit, \n" + chand[0].toString() + " " + chand[1].toString() + 
+					" " + chand[2].toString() + " " + chand[3].toString() + " " + chand[4].toString());
 			// reset counter to ZERO incase of new combo
 			ctwoKind = 0;
 			cthreeKind = 0;
 			cfourKind = 0;
 			ctwoPair = 0;
-			cfiveKind = 0;
 			cfullHouse = 0;
 			cstraight = 0;
 			dealerScore = 0;
@@ -610,12 +597,6 @@ public class Controller implements ActionListener{
 					dealerScore = 6;
 					dealersCombo = "Four of a kind.";
 				}
-				// five of a kind because of random
-				else if (card.checkPairs(chand) == 20) {
-					cfiveKind = 1;
-					dealerScore = 7;
-					dealersCombo = "Five of a kind.";
-				}
 				// full house
 				else if (card.checkPairs(chand) == 4 || card.checkPairs(chand) == 8){
 					cfullHouse = 1;
@@ -630,16 +611,15 @@ public class Controller implements ActionListener{
 				}
 			}
 			
-			// intial starting prompt
+			// prompt
 			view.setMiddle("Two of a kind: " + twoKind +"\t\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
 					+ "Three of a kind: " + threeKind + "\t"+ "Dealer Three of a kind: " + cthreeKind + "\n"
 					+ "Four of a kind: " + fourKind + "\t\t" + "Dealer Four of a kind: " + cfourKind + "\n"
-					+ "Five of a kind: " + fiveKind + "\t\t" + "Dealer Five of a kind: " + cfiveKind + "\n"
 				    + "Two Pair's: " + twoPair + "\t\t" + "Dealer Two Pair's: " + ctwoPair + "\n"
 				    + "Straight: " + straight + "\t\t" + "Dealer Straight: " + cstraight + "\n"
 				    + "Full House: " + fullHouse + "\t\t" + "Dealer Full House: " + cfullHouse);
 			
-			// save dealer card names so random doesn't change face card names
+			// save dealer card names for score updating
 			cardNames[5] = card.saveCardName(chand[0]);
 			cardNames[6] = card.saveCardName(chand[1]);
 			cardNames[7] = card.saveCardName(chand[2]);
@@ -656,14 +636,18 @@ public class Controller implements ActionListener{
 			view.yes.setEnabled(false);
 			view.no.setEnabled(false);
 			
+			// win conditions
+			// if player wins
 			if (playerScore > dealerScore) {
 				JOptionPane.showMessageDialog(null, "Player wins with " + playersCombo);
 				view.deal.setEnabled(true);
 			}
+			// if dealer wins
 			else if (dealerScore > playerScore) {
 				JOptionPane.showMessageDialog(null, "Dealer wins with " + dealersCombo);		
 				view.deal.setEnabled(true);
 			}
+			// if scores are tied
 			else {
 				JOptionPane.showMessageDialog(null, "Both people had a " + dealersCombo + ". Push.");
 				view.deal.setEnabled(true);
@@ -673,7 +657,7 @@ public class Controller implements ActionListener{
 		/**
 		 * EXIT BUTTON
 		 * 
-		 * 
+		 * closes game
 		 * 
 		 */
 		

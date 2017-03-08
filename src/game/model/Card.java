@@ -241,7 +241,5 @@ public class Card {
 			}
 		}
 		return hand[2];
-	}
-
-	
+	}	
 }

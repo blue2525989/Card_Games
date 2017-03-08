@@ -17,7 +17,7 @@ public class BlackJackController implements ActionListener{
 		
 	// Card Arrays to hold hands, pre-set to hold up to eleven cards for when you get
 	// nothing but twos. 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 = 20 so the eleventh 
-	// card surely will bust.
+	// card surely will bust or be 21.
 	//
 	// players hand
 	private Card[] phand = card.newHand();

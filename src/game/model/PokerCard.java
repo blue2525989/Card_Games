@@ -22,20 +22,16 @@ public class PokerCard extends Card{
 		// spades suit
 		if (this.suit == 0) {
 			// if rank is 10
-			if (this.rank == 10) {
+			if (this.rank == 11) {
 				newString = "Jack of Spades";
 			}
-			else if (this.rank == 11) {
+			else if (this.rank == 12) {
 				newString = "Queen of Spades";
 			}
-			else if (this.rank == 12) {
+			else if (this.rank == 13) {
 				newString = "King of Spades";	
 			}
 			// if rank is 11
-			else if (this.rank == 11) {
-				newString = "Ace of Spades";
-			}
-			// if rank is 1
 			else if (this.rank == 1) {
 				newString = "Ace of Spades";
 			}
@@ -47,18 +43,14 @@ public class PokerCard extends Card{
 		// hearts suit
 		else if (this.suit == 1) {
 			// if rank is 10
-			if (this.rank == 10) {
+			if (this.rank == 11) {
 				newString = "Jack of Hearts";
 			}
-			else if (this.rank == 11) {
+			else if (this.rank == 12) {
 				newString = "Queen of Hearts";
 			}
-			else if (this.rank == 12){
+			else if (this.rank == 13){
 				newString = "King of Hearts";
-			}
-			// if rank is 11
-			else if (this.rank == 13) {
-				newString = "Ace of Hearts";
 			}
 			// if rank is 1
 			else if (this.rank == 1) {
@@ -72,18 +64,14 @@ public class PokerCard extends Card{
 		// clubs suit
 		else if (this.suit == 2) {
 			// if rank is 10
-			if (this.rank == 10) {
+			if (this.rank == 11) {
 					newString = "Jack of Clubs";
 			}	
-			else if (this.rank  == 11) {
+			else if (this.rank  == 12) {
 				newString = "Queen of Clubs";
 			}
-			else if (this.rank == 12){
+			else if (this.rank == 13){
 				newString = "King of Clubs";
-			}
-			// if rank is 11
-			else if (this.rank == 13) {
-				newString = "Ace of Clubs";
 			}
 			// if rank is 1
 				else if (this.rank == 1) {
@@ -97,20 +85,16 @@ public class PokerCard extends Card{
 		// diamond suit
 		else if (this.suit == 3) {
 			// if rank is 10
-			if (this.rank == 10) {
+			if (this.rank == 11) {
 				newString = "Jack of Diamonds";
 			}
 			// if rank is 11
-			else if (this.rank == 13) {
+			else if (this.rank == 12) {
 				newString = "Queen of Diamonds";
 			}
 			// if rank is 11
-			else if (this.rank == 12) {
-				newString = "King of Diamonds";
-			}
-			// if rank is 11
 			else if (this.rank == 13) {
-				newString = "Ace of Diamonds";
+				newString = "King of Diamonds";
 			}
 			// if rank is 1
 			else if (this.rank == 1) {
@@ -157,7 +141,7 @@ public class PokerCard extends Card{
 		for (int i = 0; i < 5; i++) {
 			ranks[i] = hand[i].getRank();
 		}
-		//this doesn't work. figure something else out.
+		// check each card against each other
 		for (int j = 0; j < ranks.length; j++) {
 			if (ranks[0] == ranks[j]) {
 				count += 1;
@@ -192,9 +176,7 @@ public class PokerCard extends Card{
 			}
 		}
 		count = count - 1;
-		// divide by two so it doesn't double count, for example:
-		// card[0] rank == 2 && card[1] rank == 2 (so that means) count += 1
-		// card[1] rank == 2 && card[0] rank == 2 (also for same thing) count += 1
+		// divide by two so numbers are easier to deal with
 		if (count > 4) {
 			return count;
 		}
@@ -214,107 +196,128 @@ public class PokerCard extends Card{
 		// five of a kind = 20
 		// full house = 4 || 8
 		public ArrayList<Card> findCombos(Card[] hand) {
+			// int[] for storing each card's rank
 			int ranks[] = new int[5];
+			// ArrayList for storing combos of cards
 			ArrayList<Card> combos = new ArrayList<Card>();
+			// loop for add ranks to array
 			for (int i = 0; i < 5; i++) {
 				ranks[i] = hand[i].getRank();
 			}
 			// adds pairs of cards to combos array
+			// checks each card and adds it if it pairs with another
 			for (int j = 0; j < ranks.length; j++) {
 				if (j != 0) {
-				if (ranks[0] == ranks[j]) {
-					combos.add(hand[0]);
-					//combos[1] = hand[j];
-				}
+					if (ranks[0] == ranks[j]) {
+						combos.add(hand[0]);
+					}
 				}
 			}
 			for (int m = 0; m < ranks.length; m++) {
 				if (m != 1) {
-				if (ranks[1] == ranks[m]) {
-					combos.add(hand[1]);
-					//combos[3] = hand[m];
-				}
+					if (ranks[1] == ranks[m]) {
+						combos.add(hand[1]);
+					}
 				}
 			}
 			for (int m = 0; m < ranks.length; m++) {
 				if (m != 2) {
-				if (ranks[2] == ranks[m]) {
-					combos.add(hand[2]);
-					//combos[5] = hand[m];
-				}
+					if (ranks[2] == ranks[m]) {
+						combos.add(hand[2]);
+					}
 				}
 			}
 			for (int m = 0; m < ranks.length; m++) {
 				if (m != 3) {
-				if (ranks[3] == ranks[m]) {
-					combos.add(hand[3]);
-					//combos[7] = hand[m];
-				}
+					if (ranks[3] == ranks[m]) {
+						combos.add(hand[3]);
+					}
 				}
 			}
 			for (int m = 0; m < ranks.length; m++) {
 				if (m != 4) {
-				if (ranks[4] == ranks[m]) {
-					combos.add(hand[4]);
-					//combos[9] = hand[m];
-				}
+					if (ranks[4] == ranks[m]) {
+						combos.add(hand[4]);
+					}
 				}
 			}
+			// return the ArrayList of combos
 			return combos;
-			
 		}
 		
 	// checks for straight
 	public int straight(Card[] hand) {
+		// int[] to re-order card ranks in
 		int[] ordered = new int[5];
+		// counter used as a flag
 		int count = 0;
+		// add cards to be sorted
 		for (int m = 0; m < hand.length; m++) {
 			ordered[m] = hand[m].getRank();
 		}
+		// sort the cards
 		Arrays.sort(ordered);
+		// find differences between each card
 		int two_one = ordered[1] - ordered[0];
 		int three_two = ordered[2] - ordered[1];
 		int four_three = ordered[3] - ordered[2];
 		int five_four = ordered[4] - ordered[3];
+		// flag for if it is true or not
 		boolean isStraight = true;
+		// for loop to chech each case
 		for (int i = 0; i < 1; i++) {
-			if (two_one > 1) {
+			if (two_one != 1) {
 				isStraight = false;
 			}
-			else if (three_two > 1) {
+			else if (three_two != 1) {
 				isStraight = false;
 			}
-			else if (four_three > 1) {
+			else if (four_three != 1) {
 				isStraight = false;
 			}
-			else if (five_four > 1) {
+			else if (five_four != 1) {
 				isStraight = false;
 			}
+			// if all == 1
 			else {
 				isStraight = true;
 			}
 		}
+		// if true count = 1
 		if (isStraight == true) {
 			count = 1;
 		}
+		// return count, I chose an int over boolean because it returns at the
+		// same importance level as the rest. whereas boolean it would be returned first
+		// and mess up the intended flow of events.
 		return count;
 	}
 	
 	
 	// creates deck of cards
 	public ArrayList<Card> newDeck(int numCards) {
+		// new ArrayList to hold cards
 		ArrayList<Card> deck = new ArrayList<Card>();
+		// instance of card
 		Card card = new Card();
+		// counter
 		int count = 0;
+		// while loop to keep making cards until it == numCards
 		while (count < numCards) {
+			// nested loop for cycling through each card suit and rank
+			// suits
 			for (int i = 0; i < 4; i++) {
+				// ranks
 				for (int j = 1; j < 14; j++) {
+					// new card with loop variables as suit and rank
 					card = new Card(i, j);
+					// add card to ArrayList
 					deck.add(card);
 					count += 1;
 				}
 			}
 		}
+		// return ArrayList
 		return deck;
 	}
 	

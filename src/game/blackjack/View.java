@@ -22,7 +22,9 @@ public class View {
 	private JTextArea text = new JTextArea("", 5, 40);
 	// caret to auto scroll when text is added
 	private DefaultCaret carrot = (DefaultCaret) text.getCaret();
-	
+	// point for screen location
+	private Point p1 = new Point(200, 200);
+		
 	// middle j-panel for display
 	private JPanel middle = new JPanel();
 	// fun header
@@ -85,7 +87,7 @@ public class View {
 		main.setLayout(grd3);
 		
 		// set location to middle of screen, set visible, set size, and set close operation
-		//main.setLocationRelativeTo(null);
+		main.setLocation(p1);
 		main.setVisible(true);
 		main.setSize(550, 430);
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

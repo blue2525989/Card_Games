@@ -12,16 +12,19 @@ public class Main {
 	// instances of helper classes for poker
 	PokerCard card = new PokerCard();
 	Controller con = new Controller();
-	MainController maincon = new MainController();
 	// instances of helper classes for blackjack
 	BlackJackCard bjcard = new BlackJackCard();
 	BlackJackController con2 = new BlackJackController();
+	// main controller
+	MainController maincon = new MainController();
 	
+	// constructor
 	public Main() {
-		maincon.view.loadView();
-		
+		// calls loadView from view class
+		maincon.view.loadView();		
 	}
 	
+	//------MAIN METHOD------//
 	public static void main(String[] args) {
 		new Main();
 	}
