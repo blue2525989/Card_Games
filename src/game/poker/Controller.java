@@ -69,9 +69,9 @@ public class Controller implements ActionListener{
 				+ "Press the deal button to play.");
 		
 		// intial starting prompt
-		view.setMiddle("Two of a kind: " + 0 +"\t\t" + "Dealer Two of a kind: " + 0 +"\n"
+		view.setMiddle("Two of a kind: " + 0 +"\t" + "Dealer Two of a kind: " + 0 +"\n"
 				+ "Three of a kind: " + 0 + "\t"+ "Dealer Three of a kind: " + 0 + "\n"
-				+ "Four of a kind: " + 0 + "\t\t" + "Dealer Four of a kind: " + 0 + "\n"
+				+ "Four of a kind: " + 0 + "\t" + "Dealer Four of a kind: " + 0 + "\n"
 			    + "Two Pair's: " + 0 + "\t\t" + "Dealer Two Pair's: " + 0 + "\n"
 			    + "Straight: " + 0 + "\t\t" + "Dealer Straight: " + 0 + "\n"
 			    + "Full House: " + 0 + "\t\t" + "Dealer Full House: " + 0);
@@ -92,9 +92,9 @@ public class Controller implements ActionListener{
 		if (event.getSource() == view.deal) {
 			view.clear();
 			// intial starting prompt
-			view.setMiddle("Two of a kind: " + 0 +"\t\t" + "Dealer Two of a kind: " + 0 +"\n"
+			view.setMiddle("Two of a kind: " + 0 +"\t" + "Dealer Two of a kind: " + 0 +"\n"
 					+ "Three of a kind: " + 0 + "\t"+ "Dealer Three of a kind: " + 0 + "\n"
-					+ "Four of a kind: " + 0 + "\t\t" + "Dealer Four of a kind: " + 0 + "\n"
+					+ "Four of a kind: " + 0 + "\t" + "Dealer Four of a kind: " + 0 + "\n"
 				    + "Two Pair's: " + 0 + "\t\t" + "Dealer Two Pair's: " + 0 + "\n"
 				    + "Straight: " + 0 + "\t\t" + "Dealer Straight: " + 0 + "\n"
 				    + "Full House: " + 0 + "\t\t" + "Dealer Full House: " + 0);
@@ -218,9 +218,9 @@ public class Controller implements ActionListener{
 					" " + cardNames[7] + " " + cardNames[8] + " " + cardNames[9]);
 			
 			// intial starting prompt
-			view.setMiddle("Two of a kind: " + twoKind +"\t\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
+			view.setMiddle("Two of a kind: " + twoKind +"\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
 					+ "Three of a kind: " + threeKind + "\t"+ "Dealer Three of a kind: " + cthreeKind + "\n"
-					+ "Four of a kind: " + fourKind + "\t\t" + "Dealer Four of a kind: " + cfourKind + "\n"
+					+ "Four of a kind: " + fourKind + "\t" + "Dealer Four of a kind: " + cfourKind + "\n"
 				    + "Two Pair's: " + twoPair + "\t\t" + "Dealer Two Pair's: " + ctwoPair + "\n"
 				    + "Straight: " + straight + "\t\t" + "Dealer Straight: " + cstraight + "\n"
 				    + "Full House: " + fullHouse + "\t\t" + "Dealer Full House: " + cfullHouse);
@@ -369,9 +369,9 @@ public class Controller implements ActionListener{
 			}
 			
 			// prompt
-			view.setMiddle("Two of a kind: " + twoKind +"\t\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
+			view.setMiddle("Two of a kind: " + twoKind +"\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
 					+ "Three of a kind: " + threeKind + "\t"+ "Dealer Three of a kind: " + cthreeKind + "\n"
-					+ "Four of a kind: " + fourKind + "\t\t" + "Dealer Four of a kind: " + cfourKind + "\n"
+					+ "Four of a kind: " + fourKind + "\t" + "Dealer Four of a kind: " + cfourKind + "\n"
 				    + "Two Pair's: " + twoPair + "\t\t" + "Dealer Two Pair's: " + ctwoPair + "\n"
 				    + "Straight: " + straight + "\t\t" + "Dealer Straight: " + cstraight + "\n"
 				    + "Full House: " + fullHouse + "\t\t" + "Dealer Full House: " + cfullHouse);
@@ -612,9 +612,9 @@ public class Controller implements ActionListener{
 			}
 			
 			// prompt
-			view.setMiddle("Two of a kind: " + twoKind +"\t\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
+			view.setMiddle("Two of a kind: " + twoKind +"\t" + "Dealer Two of a kind: " + ctwoKind +"\n"
 					+ "Three of a kind: " + threeKind + "\t"+ "Dealer Three of a kind: " + cthreeKind + "\n"
-					+ "Four of a kind: " + fourKind + "\t\t" + "Dealer Four of a kind: " + cfourKind + "\n"
+					+ "Four of a kind: " + fourKind + "\t" + "Dealer Four of a kind: " + cfourKind + "\n"
 				    + "Two Pair's: " + twoPair + "\t\t" + "Dealer Two Pair's: " + ctwoPair + "\n"
 				    + "Straight: " + straight + "\t\t" + "Dealer Straight: " + cstraight + "\n"
 				    + "Full House: " + fullHouse + "\t\t" + "Dealer Full House: " + cfullHouse);
